@@ -50,15 +50,4 @@ public class OrderSimpleApiController {
         return result;
     }
 
-//    @GetMapping("/api/v4/simple-orders")
-//    public List<SimpleOrderDto> orderV4(){
-//        List<Order> orders = orderRepository.findAllWithMemberDelivery();
-//        List<SimpleOrderDto> result = orders.stream()
-//                .map(o -> new SimpleOrderDto(o))
-//                .collect(Collectors.toList());
-//
-//        return result;
-//    }
-    //test용 v4 orders
-
 }
