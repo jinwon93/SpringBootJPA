@@ -26,7 +26,22 @@ public class OrderApiController {
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;
 
-    
+    @GetMapping("/api/v1/orders")
+    public  List<Order> ordersV1(){
+        List<Order> all  = orderRepository.findAllByString(new OrderSearch());
+        for (Order order : all){
+            order.getMember().getName();
+            order.getDelivery().getAddress();
+
+            List<OrderItem> orderItems  = order.getOrderItems();
+            orderItems.stream().forEach( o -> o.getItem().getName());
+
+        }
+        return all;
+    }
+
+
+
     @GetMapping("/api/v2/orders")
     public List<OrderDto> orderV2(){
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
