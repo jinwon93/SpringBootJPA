@@ -17,13 +17,13 @@ public class OrderQueryService {
     private final OrderRepository orderRepository;
 
     //test
-    public List<QueryDtoService> orderV2_1(){
-
-        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
-
-        List<OrderDto> result = orders.stream()
-            .map(o -> new OrderDto(o))
-            .collect(Collectors.toList());
-        return result;
-    }
+//    public List<QueryDtoService> orderV2_1(){
+//
+//        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+//
+//        List<QueryD> result = orders.stream()
+//            .map(o -> new OrderDto(o))
+//            .collect(Collectors.toList());
+//        return result;
+//    }
 }

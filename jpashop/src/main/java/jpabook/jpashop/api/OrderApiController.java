@@ -54,10 +54,10 @@ public class OrderApiController {
     }
 
 
-    @GetMapping("/api/v2_1/orders")
-    public List<OrderDto> orderV2_1(){
-        return orderQueryService.orderV2_1();
-    }
+//    @GetMapping("/api/v2_1/orders")
+//    public List<OrderDto> orderV2_1(){
+//        return orderQueryService.orderV2_1();
+//     }
 
 
     @GetMapping("/api/v3/orders")
@@ -140,6 +140,7 @@ public class OrderApiController {
 
 
     }
+
 
 
 }
