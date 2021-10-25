@@ -2,9 +2,9 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.*;
 import jpabook.jpashop.domain.item.Item;
-import jpabook.jpashop.repository.ItemRepository;
+import jpabook.jpashop.repository.ItemRepositoryOld;
 import jpabook.jpashop.repository.MemberRepository;
-import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderRepositoryOld;
 import jpabook.jpashop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final OrderRepository orderRepository;
+    private final OrderRepositoryOld orderRepository;
     private final MemberRepository memberRepository;
-    private final ItemRepository itemRepository;
+    private final ItemRepositoryOld itemRepository;
 
     /**
      * 주문

@@ -1,20 +1,16 @@
 package jpabook.jpashop.queryservice;
 
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.queryservice.queryDto.QueryDtoService;
-import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderRepositoryOld;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OrderQueryService {
 
-    private final OrderRepository orderRepository;
+    private final OrderRepositoryOld orderRepository;
 
     //test
 //    public List<QueryDtoService> orderV2_1(){

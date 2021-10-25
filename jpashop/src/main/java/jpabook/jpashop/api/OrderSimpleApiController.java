@@ -5,7 +5,7 @@ package jpabook.jpashop.api;
 import jpabook.jpashop.domain.Order;
 
 import jpabook.jpashop.dto.SimpleOrderDto;
-import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderRepositoryOld;
 import jpabook.jpashop.repository.OrderSearch;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class OrderSimpleApiController {
 
 
-    private  final OrderRepository orderRepository;
+    private  final OrderRepositoryOld orderRepository;
 
 
     @GetMapping("/api/v2/simple-orders")

@@ -2,7 +2,7 @@ package jpabook.jpashop.service;
 
 
 import jpabook.jpashop.domain.item.Item;
-import jpabook.jpashop.repository.ItemRepository;
+import jpabook.jpashop.repository.ItemRepositoryOld;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
-    private final ItemRepository itemRepository;
+    private final ItemRepositoryOld itemRepository;
 
     @Transactional
     public void  saveItem(Item item){
