@@ -4,10 +4,13 @@ package jpabook.jpashop.service;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -16,11 +19,12 @@ public class MemberService {
 
 
 
+    @Autowired
     private final MemberRepository memberRepository;
-    /** RequiredArgsConstructor(LOMBOOK) test case 작성시
-    public MemberService(MemberRepository memberRepository){
-        this.memberRepository = memberRepository;
-    }**/
+    //private  final PasswordEncoder passwordEncoder;
+
+
+
 
 
     /** 회원가입 **/
