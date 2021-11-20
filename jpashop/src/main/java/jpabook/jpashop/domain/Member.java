@@ -2,6 +2,7 @@ package jpabook.jpashop.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,5 +29,10 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders =  new ArrayList<>();
 
-
+    @Builder
+    public Member(Long id, String name, Address address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+    }
 }
