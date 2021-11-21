@@ -4,6 +4,7 @@ package jpabook.jpashop.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Setter
+@Getter
+@RequiredArgsConstructor
 public class Member {
 
     @Id @GeneratedValue
@@ -29,10 +32,15 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders =  new ArrayList<>();
 
+
+
     @Builder
     public Member(Long id, String name, Address address) {
         this.id = id;
         this.name = name;
         this.address = address;
+
     }
+
+
 }

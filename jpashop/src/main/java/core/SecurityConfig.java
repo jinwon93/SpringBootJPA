@@ -1,6 +1,7 @@
 package core;
 
 import core.request.jwtAuthenticationEntryPoint;
+import jpabook.jpashop.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+
+    @Autowired
+    private  MemberService memberService;
 
     @Bean
     @Override
