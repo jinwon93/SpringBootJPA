@@ -1,6 +1,6 @@
 package core.request;
 
-import org.springframework.security.web.AuthenticationEntryPoint;
+//import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import javax.naming.AuthenticationException;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 @Component
-public class jwtAuthenticationEntryPoint  implements AuthenticationEntryPoint, Serializable{
+public class jwtAuthenticationEntryPoint  implements  Serializable{
 
     private static  final long seriaVersionUID = 4858836244833364014L;
 
@@ -21,8 +21,8 @@ public class jwtAuthenticationEntryPoint  implements AuthenticationEntryPoint, S
 //        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 //    }
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-    }
+//    @Override
+//    public void commence(HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.AuthenticationException authException) throws IOException, ServletException {
+//        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+//    }
 }
