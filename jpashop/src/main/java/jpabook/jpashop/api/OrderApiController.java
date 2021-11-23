@@ -4,7 +4,6 @@ import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.OrderStatus;
-import jpabook.jpashop.queryservice.OrderQueryService;
 import jpabook.jpashop.repository.OrderRepositoryOld;
 import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.repository.order.query.OrderFlatDto;
@@ -26,7 +25,6 @@ public class OrderApiController {
 
     private final OrderRepositoryOld orderRepository;
     private final OrderQueryRepository orderQueryRepository;
-    private  final OrderQueryService orderQueryService;
 
     @GetMapping("/api/v1/orders")
     public  List<Order> ordersV1(){

@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -77,10 +78,10 @@ public class JwtTokenUtil  implements Serializable {
      * @param userDetails
      * @return
      */
-//    public String generateToken(UserDetails userDetails){
-//        Map<String, Object> claims = new HashMap<>();
-//        return doGenerateToken(claims, userDetails.getUsername());
-//    }
+    public String generateToken(UserDetails userDetails){
+        Map<String, Object> claims = new HashMap<>();
+        return doGenerateToken(claims, userDetails.getUsername());
+    }
 
     /**
      * 토큰을 생성하는 동안
@@ -107,8 +108,8 @@ public class JwtTokenUtil  implements Serializable {
      * @param userDetails
      * @return
      */
-//    public Boolean validateToken(String token, UserDetails userDetails){
-//        final String username = getUsernameFromToken(token);
-//        return(username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-//    }
+    public Boolean validateToken(String token, UserDetails userDetails){
+        final String username = getUsernameFromToken(token);
+        return(username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
 }

@@ -23,6 +23,7 @@ public class Member {
 
     }
 
+
     public Member(String userName){
         this.userName  = userName;
     }

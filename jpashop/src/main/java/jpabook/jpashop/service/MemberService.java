@@ -20,11 +20,6 @@ public class MemberService {
 
     @Autowired
     private final MemberRepository memberRepository;
-    //private  final PasswordEncoder passwordEncoder;
-
-
-
-
 
     /** 회원가입 **/
     @Transactional
