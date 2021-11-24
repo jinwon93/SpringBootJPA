@@ -1,4 +1,4 @@
-package jpabook.jpashop.jwt.domain;
+package secondpage.domain;
 
 
 import lombok.AllArgsConstructor;
