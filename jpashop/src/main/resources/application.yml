@@ -16,8 +16,11 @@ spring:
   jwt:
     secret: jwtsecret
 
+file:
+  path: D:/city-hunter/src/main/resources/upload/
 
 logging:
   level:
     org.hibernate.SQL: debug
 #    org.hibernate.type: trace
+
