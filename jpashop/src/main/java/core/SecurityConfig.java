@@ -2,6 +2,9 @@ package core;
 
 
 
+import core.jwt.JwtAuthenticationFilter;
+import core.jwt.JwtProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -21,48 +25,43 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
-
+@RequiredArgsConstructor
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // 정적인 파일에 대한 요청들
-    private static final String[] AUTH_WHITELIST = {
-            // -- swagger ui
-            "/v2/api-docs",
-            "/v3/api-docs/**",
-            "/configuration/ui",
-            "/swagger-resources/**",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
-            "/file/**",
-            "/image/**",
-            "/swagger/**",
-            "/swagger-ui/**",
-            // other public endpoints of your API may be appended to this array
-            "/h2/**"
-    };
 
+      private final JwtProvider jwtProvider;
     @Bean
-    public BCryptPasswordEncoder encodePassword() {  // 회원가입 시 비밀번호 암호화에 사용할 Encoder 빈 등록
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+
+    //    https://webfirewood.tistory.com/115!!
+
+
+    // authenticationManager를 Bean 등록합니다.
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                // login 없이 접근 허용 하는 url
-                .antMatchers("/auth/**").permitAll()
-                // '/admin'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능
-                .antMatchers("/admin").hasRole("ADMIN")
-                // 그 외 모든 요청은 인증과정 필요
-                .anyRequest().authenticated();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        // 정적인 파일 요청에 대해 무시
-        web.ignoring().antMatchers(AUTH_WHITELIST);
+        http
+                .httpBasic().disable() // rest api 만을 고려하여 기본 설정은 해제하겠습니다.
+                .csrf().disable() // csrf 보안 토큰 disable처리.
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
+                .and()
+                .authorizeRequests() // 요청에 대한 사용권한 체크
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("USER")
+                .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
+                .and()
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
+                        UsernamePasswordAuthenticationFilter.class);
+        // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
     }
 
 
