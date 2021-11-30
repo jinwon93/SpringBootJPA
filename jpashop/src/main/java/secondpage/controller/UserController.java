@@ -2,60 +2,36 @@ package secondpage.controller;
 
 
 import core.jwt.JwtProvider;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import secondpage.domain.User;
 import secondpage.repository.UserRepository;
 
+import java.util.Collections;
 import java.util.Map;
 
-@Controller
-@Slf4j
+
+
+@RequiredArgsConstructor
+@RestController
 public class UserController {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private JwtProvider jwtProvider;
-
-    @RequestMapping(value = "/user")
-    public String userMain() {
-        return "/user/main";
-    }
-
-    @RequestMapping(value = "/customer")
-    public String customerMain() { return "/customer/main"; }
-
-    @RequestMapping(value = "/signup")
-    public String signup() {
-        return "/signup";
-    }
-
-    @RequestMapping(value = "/signupGroup")
-    public String group() {
-        return "signupGroup";
-    }
-
-    @RequestMapping(value = "/login")
-    public String login() { return "login"; }
-
-    @PostMapping("/checkemail")
-    @ResponseBody
-    public int checkEmail(String email) {
-        if(userRepository.countByEmail(email) > 0){
-            return 0;
-        };
-        return 1;
+    // 회원가입
+    @PostMapping("/join")
+    public Long join(@RequestBody Map<String, String> user) {
+        return userRepository.save(User.builder()
+                .email(user.get("email"))
+                .password(passwordEncoder.encode(user.get("password")))
+                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
+                .build()).getId();
     }
 
     // 로그인
@@ -66,6 +42,6 @@ public class UserController {
         if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return jwtProvider.createToken(member.getUsername(), member.getRoles());
+        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
     }
 }
