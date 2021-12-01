@@ -57,10 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() // 요청에 대한 사용권한 체크
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("USER")
-                .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
-                .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
-                        UsernamePasswordAuthenticationFilter.class);
+                .anyRequest().permitAll(); // 그외 나머지 요청은 누구나 접근 가능
+                //.and()
+                //.addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
+                       // UsernamePasswordAuthenticationFilter.class);
         // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
     }
 

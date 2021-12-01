@@ -14,7 +14,7 @@ spring:
         format_sql: true
 
   jwt:
-    key: 12345678901234567890123456789012
+    secret: 12345678901234567890123456789012
 
 file:
   path: D:/city-hunter/src/main/resources/upload/
