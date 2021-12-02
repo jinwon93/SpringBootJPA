@@ -1,7 +1,10 @@
 package secondpage.service;
 
+import core.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import secondpage.config.EmailDuplicateException;
 import secondpage.domain.User;
 import secondpage.domain.UserDto;
 import secondpage.repository.UserRepository;
@@ -11,31 +14,33 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
+    UserRepository repository;
+    PasswordEncoder passwordEncoder;
 
-    private final UserRepository userRepository;
-
-
-    @Override // 기본적인 반환 타입은 UserDetails, UserDetails를 상속받은 UserInfo로 반환 타입 지정 (자동으로 다운 캐스팅됨)
-    public User loadUserByUsername(String email) throws UsernameNotFoundException { // 시큐리티에서 지정한 서비스이기 때문에 이 메소드를 필수로 구현
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException((email)));
+    @Autowired
+    public UserService(UserRepository repository, PasswordEncoder passwordEncoder){
+        this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-
-
-    public Long save(UserDto infoDto) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        infoDto.setPassword(encoder.encode(infoDto.getPassword()));
-
-        return userRepository.save(User.builder()
-                .email(infoDto.getEmail())
-                .auth(infoDto.getAuth())
-                .password(infoDto.getPassword()).build()).getId();
+    public void save(User user){
+        Optional<User> aleadyUser = repository.findByEmail(user.getEmail());
+        if( aleadyUser.isPresent()){
+            throw new EmailDuplicateException("email duplicated", ErrorCode.EMAIL_DUPLICATION);
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        repository.save(user);
     }
 
+    public Optional<User> findUserByEmail(String email){
+        Optional<User> aleadyUser = repository.findByEmail(email);
+        return aleadyUser;
+    }
 
 }

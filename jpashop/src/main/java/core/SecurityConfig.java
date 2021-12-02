@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     //    https://webfirewood.tistory.com/115!!
+    //  https://samtao.tistory.com/49 !!
 
 
     // authenticationManager를 Bean 등록합니다.
