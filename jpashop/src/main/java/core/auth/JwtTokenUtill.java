@@ -1,4 +1,4 @@
-package core.jwt;
+package core.auth;
 
 
 import io.jsonwebtoken.Claims;

@@ -1,12 +1,9 @@
 package secondpage.controller;
 
 
-import core.jwt.JwtProvider;
+import core.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import secondpage.domain.User;
 import secondpage.repository.UserRepository;
@@ -21,7 +18,7 @@ import java.util.Map;
 public class UserController {
 
     private final PasswordEncoder passwordEncoder;
-    private final JwtProvider jwtTokenProvider;
+    private final PrincipalDetails jwtTokenProvider;
     private final UserRepository userRepository;
 
     // 회원가입
