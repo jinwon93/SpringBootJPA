@@ -31,7 +31,6 @@ public class User implements UserDetails {
     @Column(name = "email", unique = true)
     private String email;
 
-    @JsonIgnore
     @Column(length = 200 , nullable = false)
     private String password;
 
@@ -42,104 +41,54 @@ public class User implements UserDetails {
     private String website;
 
     @Column(length = 50)
-    private String bio;
+    private String title;
 
 
-    @Column(length = 32)
-    private String phone;
-
-    @Column(length = 16)
-    private String gender;
-
-    @Column(name = "profile_image")
-    private String provider;
-
-    @Column(name = "provider_id",length = 50)
-    private String providerId;
-
-
-    private int active = 1;
-
-
-
-    @Column(name = "auth")
-    private String auth;
-
-
-    @Column(length = 32)
-    private String roles;
-
-    @CreationTimestamp
-    @Column(name = "create_date")
-    private Timestamp createDate;
-
-
-    @CreationTimestamp
-    @Column(name = "update_date")
-    private Timestamp updateeDate;
+    @Column(length = 100)
+    private String profileImgUrl;
 
 
     @Builder
-    public User(String email, String password,  String roles , String auth) {
+    public User(String email, String password,  String title , String website , String profileImgUrl) {
         this.email = email;
         this.password = password;
-        this.roles = roles;
-        this.active =1;
-        this.auth = auth;
+        this.title = title;
+        this.website = website;
+        this.profileImgUrl = profileImgUrl;
     }
 
 
-
-    // 사용자의 권한을 콜렉션 형태로 반환
-    // 단, 클래스 자료형은 GrantedAuthority를 구현해야함
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> roles = new HashSet<>();
-        for (String role : auth.split(",")) {
-            roles.add(new SimpleGrantedAuthority(role));
-        }
-        return roles;
+        return null;
     }
 
-    // 사용자의 id를 반환 (unique한 값)
     @Override
     public String getUsername() {
         return email;
     }
 
-    // 사용자의 password를 반환
     @Override
-    public String getPassword() {
-        return password;
+    public String getPassword(){
+        return  password;
     }
-
-    // 계정 만료 여부 반환
     @Override
     public boolean isAccountNonExpired() {
-        // 만료되었는지 확인하는 로직
-        return true; // true -> 만료되지 않았음
+        return false;
     }
 
-    // 계정 잠금 여부 반환
     @Override
     public boolean isAccountNonLocked() {
-        // 계정 잠금되었는지 확인하는 로직
-        return true; // true -> 잠금되지 않았음
+        return false;
     }
 
-    // 패스워드의 만료 여부 반환
     @Override
     public boolean isCredentialsNonExpired() {
-        // 패스워드가 만료되었는지 확인하는 로직
-        return true; // true -> 만료되지 않았음
+        return false;
     }
 
-    // 계정 사용 가능 여부 반환
     @Override
     public boolean isEnabled() {
-        // 계정이 사용 가능한지 확인하는 로직
-        return true; // true -> 사용 가능
+        return false;
     }
-
-    
 }

@@ -72,8 +72,8 @@ public class PrincipalDetails  implements UserDetails{
         return false;
     }
 
-    @Override
-    public  String getName(){
-        return  (String) atttributes.get("name");
-    }
+//    @Override
+//    public  String getName(){
+//        return  (String) atttributes.get("name");
+//    }
 }
