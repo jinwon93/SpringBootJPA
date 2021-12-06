@@ -27,12 +27,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(name = "email", unique = true)
     private String email;
 
     @Column(length = 200 , nullable = false)
     private String password;
+
+
+    private String phone;
 
     @Column(length = 50)
     private String name;
@@ -49,12 +51,14 @@ public class User implements UserDetails {
 
 
     @Builder
-    public User(String email, String password,  String title , String website , String profileImgUrl) {
+    public User(String email, String password, String phone,  String title , String website , String profileImgUrl ,String name) {
         this.email = email;
         this.password = password;
         this.title = title;
         this.website = website;
         this.profileImgUrl = profileImgUrl;
+        this.phone = phone;
+        this.name = name;
     }
 
 

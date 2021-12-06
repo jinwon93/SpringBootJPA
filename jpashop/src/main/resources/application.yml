@@ -16,6 +16,11 @@ spring:
   jwt:
     secret: 12345678901234567890123456789012
 
+
+profileImg.path:
+      D:/intelliJ Project/profile_imgs/
+    post.path:
+      = D:/intelliJ Project/upload/
 file:
   path: D:/city-hunter/src/main/resources/upload/
 

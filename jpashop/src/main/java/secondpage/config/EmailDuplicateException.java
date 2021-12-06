@@ -1,14 +1,14 @@
 package secondpage.config;
 
-import core.exception.ErrorCode;
+import core.handler.CustomVaildationException;
 import lombok.Getter;
 
 @Getter
 public class EmailDuplicateException extends RuntimeException{
 
-    private ErrorCode errorCode;
+    private CustomVaildationException errorCode;
 
-    public EmailDuplicateException(String message, ErrorCode errorCode){
+    public EmailDuplicateException(String message, CustomVaildationException errorCode){
         super(message);
         this.errorCode = errorCode;
     }

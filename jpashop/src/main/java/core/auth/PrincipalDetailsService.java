@@ -20,23 +20,23 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@RequiredArgsConstructor
-@Service
-public class PrincipalDetailsService implements UserDetailsService {
-
-
-
-    private final UserRepository userRepository;
-
-    @Override
-    public UserDetails loadUserByUsername(String  username) throws UsernameNotFoundException{
-        User user  = userRepository.findByUsername(username);
-
-        if (user == null){
-            return  null;
-        }else{
-            return  new PrincipalDetails(user);
-        }
-
-    }
-}
+//@RequiredArgsConstructor
+//@Service
+//public class PrincipalDetailsService implements UserDetailsService {
+//
+//
+//
+//    private final UserRepository userRepository;
+//
+//    @Override
+//    public UserDetails loadUserByUsername(String  username) throws UsernameNotFoundException{
+//        User user  = userRepository.findByUsername(username);
+//
+//        if (user == null){
+//            return  null;
+//        }else{
+//            return  new PrincipalDetails(user);
+//        }
+//
+//    }
+//}

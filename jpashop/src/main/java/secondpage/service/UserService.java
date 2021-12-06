@@ -1,42 +1,43 @@
 package secondpage.service;
 
-import core.exception.ErrorCode;
+
+import core.handler.CustomVaildationException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import secondpage.config.EmailDuplicateException;
 import secondpage.domain.User;
+import secondpage.domain.UserLoginDto;
 import secondpage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService {
 
-    UserRepository repository;
-    PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserService(UserRepository repository, PasswordEncoder passwordEncoder){
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
-    public void save(User user){
-        Optional<User> aleadyUser = repository.findByEmail(user.getEmail());
-        if( aleadyUser.isPresent()){
-            throw new EmailDuplicateException("email duplicated", ErrorCode.EMAIL_DUPLICATION);
+    @Transactional
+    public void save(UserLoginDto userLoginDto){
+
+
+        if (userRepository.findSUerByEmail(userLoginDto.getEmail()) != null){
+            new CustomVaildationException("이미 존자하는 회원입니다");
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        repository.save(user);
+        userRepository.save(User.builder()
+                .email(userLoginDto.getEmail())
+                .password(userLoginDto.getPassword())
+                .phone(userLoginDto.getPhone())
+                .name(userLoginDto.getName())
+                .build()
+                );
     }
 
-    public Optional<User> findUserByEmail(String email){
-        Optional<User> aleadyUser = repository.findByEmail(email);
-        return aleadyUser;
-    }
+    @Value("${profileImg.path}")
+    private String uploadFolder;
+
 
 }
