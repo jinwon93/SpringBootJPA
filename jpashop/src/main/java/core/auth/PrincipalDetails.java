@@ -32,10 +32,14 @@ public class PrincipalDetails  implements UserDetails{
         this.user = user;
     }
 
-//    @Override
-//    public Map<String , Object> getAtttributes(){
-//        return  atttributes;
-//    }
+
+    public void  updateUser(User user){
+        this.user =user;
+    }
+    @Override
+    public Map<String , Object> getAtttributes(){
+        return  atttributes;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -72,8 +76,8 @@ public class PrincipalDetails  implements UserDetails{
         return false;
     }
 
-//    @Override
-//    public  String getName(){
-//        return  (String) atttributes.get("name");
-//    }
+    @Override
+    public  String getName(){
+        return  (String) atttributes.get("name");
+    }
 }

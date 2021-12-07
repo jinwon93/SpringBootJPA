@@ -95,4 +95,17 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+
+    public void  updata(String password , String phone , String name , String title , String website){
+        this.password = password;
+        this.phone = phone;
+        this.name = name;
+        this.title = title;
+        this.website = website;
+    }
+
+    public void updateProfileImgUrl(String profileImgUrl) {
+        this.profileImgUrl = profileImgUrl;
+    }
 }
