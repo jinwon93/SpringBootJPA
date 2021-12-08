@@ -9,8 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 import secondpage.domain.User;
-import secondpage.domain.UserLoginDto;
-import secondpage.domain.UserUpdateDto;
+import secondpage.domain.dto.UserLoginDto;
+import secondpage.domain.dto.UserProfileDto;
+import secondpage.domain.dto.UserUpdateDto;
 import secondpage.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -82,4 +83,12 @@ public class UserService {
         principalDetails.updateUser(user);
     }
 
+    @Transactional
+    public UserProfileDto getUserProfileDto(long profileId , long sessionId){
+
+        UserProfileDto userProfileDto = new UserProfileDto();
+
+
+        return  userProfileDto;
+    }
 }

@@ -1,4 +1,4 @@
-package secondpage.domain;
+package secondpage.domain.dto;
 
 
 import lombok.AllArgsConstructor;
