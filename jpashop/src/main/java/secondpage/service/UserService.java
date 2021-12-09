@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
-import secondpage.domain.User;
+import secondpage.domain.user.User;
 import secondpage.domain.dto.UserLoginDto;
 import secondpage.domain.dto.UserProfileDto;
 import secondpage.domain.dto.UserUpdateDto;
@@ -87,7 +87,11 @@ public class UserService {
     public UserProfileDto getUserProfileDto(long profileId , long sessionId){
 
         UserProfileDto userProfileDto = new UserProfileDto();
-
+        User user = userRepository.findById(profileId).orElseThrow(() -> {
+            return  new CustomVaildationException(("찾을 수 없는 user입니다"));
+        });
+        userProfileDto.setUser(user);
+        //userProfileDto.setPostCount(user.get);
 
         return  userProfileDto;
     }

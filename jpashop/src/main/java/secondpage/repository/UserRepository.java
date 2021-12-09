@@ -1,6 +1,6 @@
 package secondpage.repository;
 
-import secondpage.domain.User;
+import secondpage.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

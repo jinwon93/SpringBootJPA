@@ -5,8 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import secondpage.domain.User;
-import secondpage.service.CustomUserDetailService;
+import secondpage.domain.user.User;
 import secondpage.service.UserService;
 
 import java.util.ArrayList;

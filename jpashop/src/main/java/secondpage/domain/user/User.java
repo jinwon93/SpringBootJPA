@@ -1,4 +1,4 @@
-package secondpage.domain;
+package secondpage.domain.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,6 +16,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -48,6 +49,8 @@ public class User implements UserDetails {
 
     @Column(length = 100)
     private String profileImgUrl;
+
+
 
 
     @Builder

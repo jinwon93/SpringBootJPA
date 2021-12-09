@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import secondpage.domain.User;
+import secondpage.domain.user.User;
 
 @Data
 @Builder
