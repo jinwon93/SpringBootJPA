@@ -2,6 +2,7 @@ package secondpage.domain.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import secondpage.domain.post.Post;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -28,7 +30,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email", unique = true)
+    @Column(length = 100 , nullable = false , unique = true)
     private String email;
 
     @Column(length = 200 , nullable = false)
@@ -50,6 +52,10 @@ public class User implements UserDetails {
     @Column(length = 100)
     private String profileImgUrl;
 
+
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user" , fetch = FetchType.LAZY)
+    private List<Post> postList;
 
 
 
