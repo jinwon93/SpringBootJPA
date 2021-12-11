@@ -91,7 +91,20 @@ public class UserService {
             return  new CustomVaildationException(("찾을 수 없는 user입니다"));
         });
         userProfileDto.setUser(user);
-        //userProfileDto.setPostCount(user.get);
+        userProfileDto.setPostCount(user.getPostList().size());
+
+        //loginEmail을 활용하여 currentId.가 로그인한 사용자 인지 확인
+        User loginUser = userRepository.findById(sessionId).orElseThrow(() -> {
+            return  new CustomVaildationException("찾을 수 없는 user입니다");
+        });
+        userProfileDto.setLoginUser(loginUser.getId() == user.getId());
+
+        // currentId를 가진 user가 loginEmail을 가진 user를 구독 했는지 확인
+        //userProfileDto.setFollow();
+        // currentId를 가진 user의 팔로워 수를 확인한다.
+
+
+
 
         return  userProfileDto;
     }
