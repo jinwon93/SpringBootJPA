@@ -12,6 +12,7 @@ import secondpage.domain.user.User;
 import secondpage.dto.user.UserLoginDto;
 import secondpage.dto.user.UserProfileDto;
 import secondpage.dto.user.UserUpdateDto;
+import secondpage.repository.FollowRepository;
 import secondpage.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -26,6 +27,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FollowRepository followRepository;
 
 
     @Transactional
@@ -100,6 +102,9 @@ public class UserService {
         userProfileDto.setLoginUser(loginUser.getId() == user.getId());
 
         // currentId를 가진 user가 loginEmail을 가진 user를 구독 했는지 확인
+        userProfileDto.setFollow(followRepository.findFollowByFromUserAndToUserId(loginUser.getId() , user.getId()) != null);
+
+
         //userProfileDto.setFollow();
         // currentId를 가진 user의 팔로워 수를 확인한다.
 
