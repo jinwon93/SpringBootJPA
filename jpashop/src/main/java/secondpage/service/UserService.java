@@ -107,8 +107,13 @@ public class UserService {
 
         //userProfileDto.setFollow();
         // currentId를 가진 user의 팔로워 수를 확인한다.
+        userProfileDto.setUserFollowerCount(followRepository.findFollowerCountById(profileId));
+        userProfileDto.setUserFollowingCount(followRepository.findFollowerCountById(profileId));
 
-
+        //좋아요 수 확인
+        user.getPostList().forEach(post -> {
+            post.updateLikesCount(post.getLikesList().size());
+        });
 
 
         return  userProfileDto;

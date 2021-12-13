@@ -4,6 +4,7 @@ package secondpage.domain.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import secondpage.domain.comment.Comment;
 import secondpage.domain.likes.Likes;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Post {
 
 
@@ -32,6 +34,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
 
 
     @JsonIgnoreProperties({"post"})
