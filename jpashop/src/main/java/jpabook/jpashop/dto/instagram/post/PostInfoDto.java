@@ -19,7 +19,7 @@ public class PostInfoDto {
     private long id;
     private String text;
     private String tag;
-    private LocalDateTime createdate;
+    private LocalDateTime createDate;
     private User postUploader;
     private long likeCount;
     private boolean likeState;

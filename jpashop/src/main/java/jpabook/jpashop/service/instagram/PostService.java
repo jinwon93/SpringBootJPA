@@ -54,8 +54,31 @@ public class PostService {
     }
 
 
-    //@Transactional
-    public PostInfoDto(){
-        return;
+    @Transactional
+    public PostInfoDto getPostInfoDto(long postId, long sessionId) {
+        PostInfoDto postInfoDto = new PostInfoDto();
+        postInfoDto.setId(postId);
+
+        Post post = postRepository.findById(postId).get();
+        postInfoDto.setTag(post.getTag());
+        postInfoDto.setText(post.getText());
+        postInfoDto.setPostImgUrl(post.getPostImgUrl());
+        postInfoDto.getCreateDate(post.getCreateDate());
+
+        //포스트 정보 요청시 포스트 엔티티의 likesCount, likesState, CommentList를 설정해준다.
+        postInfoDto.setLikeCount(post.getLikesList().size());
+        post.getLikesList().forEach(likes -> {
+            if(likes.getUser().getId() == sessionId) postInfoDto.setLikeState(true);
+        });
+        postInfoDto.setCommentList(post.getCommentList());
+
+        //포스트 주인의 정보를 가져온다.
+        User user = userRepository.findById(post.getUser().getId()).get();
+
+        postInfoDto.setPostUploader(user);
+        if(sessionId == post.getUser().getId()) postInfoDto.setUploader(true);
+        else postInfoDto.setUploader(false);
+
+        return postInfoDto;
     }
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -56,6 +57,7 @@ public class Post {
     @Transient
     private boolean likesState;
 
+    private LocalDateTime createDate;
 
     @Builder
     public Post(String postImgUrl, String tag, String text, User user, long likesCount) {
@@ -69,6 +71,11 @@ public class Post {
     public void  update(String tag  , String text){
         this.tag = tag;
         this.text = text;
+    }
+
+    @PrePersist
+    public void createDate() {
+        this.createDate = LocalDateTime.now();
     }
 
     public void  updateLikesCount(long likesCount){
