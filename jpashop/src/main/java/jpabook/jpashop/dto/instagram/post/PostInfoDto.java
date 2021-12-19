@@ -3,9 +3,7 @@ package jpabook.jpashop.dto.instagram.post;
 
 import jpabook.jpashop.domain.instagram.Comment;
 import jpabook.jpashop.domain.instagram.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @Data
+@Getter
+@Setter
 public class PostInfoDto {
 
 
@@ -26,4 +26,7 @@ public class PostInfoDto {
     private boolean uploader;
     private String postImgUrl;
     private List<Comment> commentList;
+
+    public void getCreateDate(LocalDateTime createDate) {
+    }
 }

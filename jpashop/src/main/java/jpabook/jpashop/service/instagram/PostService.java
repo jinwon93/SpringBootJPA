@@ -3,6 +3,8 @@ package jpabook.jpashop.service.instagram;
 
 import jpabook.jpashop.core.auth.PrincipalDetails;
 import jpabook.jpashop.domain.instagram.Post;
+import jpabook.jpashop.domain.instagram.User;
+import jpabook.jpashop.dto.instagram.post.PostDto;
 import jpabook.jpashop.dto.instagram.post.PostInfoDto;
 import jpabook.jpashop.dto.instagram.post.PostUploadDto;
 import jpabook.jpashop.repository.instagram.PostRepository;
@@ -80,5 +82,20 @@ public class PostService {
         else postInfoDto.setUploader(false);
 
         return postInfoDto;
+    }
+
+    @Transactional
+    public PostDto getPostDto(long postId) {
+        //예외 처리 필요 -> post의 작성자가 아닌 사람이 해당 페이지에 접근하여 수정하려고 한다면??
+        Post post = postRepository.findById(postId).get();
+
+        PostDto postDto = PostDto.builder()
+                .id(postId)
+                .tag(post.getTag())
+                .text(post.getText())
+                .postImgUrl(post.getPostImgUrl())
+                .build();
+
+        return postDto;
     }
 }
