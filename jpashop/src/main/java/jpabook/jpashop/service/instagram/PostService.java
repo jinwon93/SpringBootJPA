@@ -98,4 +98,14 @@ public class PostService {
 
         return postDto;
     }
+
+
+    @Transactional
+    public void  update(PostUploadDto postUploadDto){
+        Post post = postRepository.findById(postUploadDto.getId()).get();
+        post.update(postUploadDto.getTag() , postUploadDto.getText());
+    }
+
+
+
 }
