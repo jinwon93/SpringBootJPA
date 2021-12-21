@@ -7,8 +7,11 @@ import jpabook.jpashop.domain.instagram.User;
 import jpabook.jpashop.dto.instagram.post.PostDto;
 import jpabook.jpashop.dto.instagram.post.PostInfoDto;
 import jpabook.jpashop.dto.instagram.post.PostUploadDto;
+import jpabook.jpashop.repository.instagram.CommentRespository;
+import jpabook.jpashop.repository.instagram.LikeRepository;
 import jpabook.jpashop.repository.instagram.PostRepository;
 import jpabook.jpashop.repository.instagram.UserRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityManager;
 import javax.persistence.Transient;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +32,8 @@ public class PostService {
 
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final LikeRepository likeRepository;
+    private final CommentRespository commentRespository;
     private EntityManager em;
 
     private String uploadUrl;
@@ -107,5 +113,20 @@ public class PostService {
     }
 
 
+    @Transactional
+    public void delete(long postId){
+        Post post = postRepository.findById(postId).get();
 
+
+        //관련된 likes의 정보 먼저 삭제해 준다
+        likeRepository.deleteLikesByPost(post);
+
+
+        //관련된 Comment의 정보 먼저 삭제해 준다
+        commentRespository.deleteCommentByPost(post);
+
+
+
+
+    }
 }
