@@ -86,6 +86,7 @@ public class Post {
         this.likesState = likesState;
     }
 
+
     public void makePost(long id){
         this.id = id;
     }

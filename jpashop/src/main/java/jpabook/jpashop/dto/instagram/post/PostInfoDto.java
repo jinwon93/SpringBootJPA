@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @Getter
 @Setter
+@NoArgsConstructor
 public class PostInfoDto {
 
 
@@ -26,6 +27,8 @@ public class PostInfoDto {
     private boolean uploader;
     private String postImgUrl;
     private List<Comment> commentList;
+
+
 
     public void getCreateDate(LocalDateTime createDate) {
     }
