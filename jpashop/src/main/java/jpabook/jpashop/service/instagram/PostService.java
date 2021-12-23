@@ -6,6 +6,7 @@ import jpabook.jpashop.domain.instagram.Post;
 import jpabook.jpashop.domain.instagram.User;
 import jpabook.jpashop.dto.instagram.post.PostDto;
 import jpabook.jpashop.dto.instagram.post.PostInfoDto;
+import jpabook.jpashop.dto.instagram.post.PostPreviewDto;
 import jpabook.jpashop.dto.instagram.post.PostUploadDto;
 import jpabook.jpashop.repository.instagram.CommentRespository;
 import jpabook.jpashop.repository.instagram.LikeRepository;
@@ -13,18 +14,21 @@ import jpabook.jpashop.repository.instagram.PostRepository;
 import jpabook.jpashop.repository.instagram.UserRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.Transient;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -150,6 +154,7 @@ public class PostService {
     }
 
 
+    @Transactional
     public Page<Post> getTagPost(String tag ,  long sessionId ,  Pageable pageable){
 
         Page<Post> postList = postRepository.searchResult(tag , pageable);
@@ -162,5 +167,27 @@ public class PostService {
         });
 
         return postList;
+    }
+
+
+    public Page<PostPreviewDto> getLikesPost(long sessionId , Pageable pageable){
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT p.id p.post_img_url , COUNT(p.id) as likesCunt");
+        sb.append("FROM likes l, post p ");
+        sb.append("WHERE l.post_id = p.id ");
+        sb.append("AND p.id IN (SELECT p.id FROM likes l, post p WHERE l.user_id = ? AND p.id = l.post_id) ");
+        sb.append("GROUP BY p.id ");
+        sb.append("ORDER BY p.id");
+
+
+        //쿼리 완성 --> querydsl로 업데이트 예정
+        Query query  = em.createNativeQuery(sb.toString())
+                .setParameter(1, sessionId);
+
+
+        JpaResultMapper result = new JpaResultMapper();
+        List<PostPreviewDto> postLikesList = result.list(query , PostPreviewDto.class);
+
+
     }
 }
