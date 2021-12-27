@@ -24,7 +24,7 @@ public interface FollowRepository extends JpaRepository<Follow , Long> {
     void follow(long fromId ,  long toId);
 
     @Modifying
-    @Query(value = "DELETE FROM follow(from_user_id ,to_user_id) VALUES(:fromId , :toId)" , nativeQuery = true)
+    @Query(value = "DELETE FROM follow WHERE from_user_id =  :fromId AND to_user_id = :toId" , nativeQuery = true)
     void unFollow(long fromId ,  long toId);
 
 
