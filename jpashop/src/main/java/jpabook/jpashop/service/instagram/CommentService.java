@@ -28,6 +28,19 @@ public class CommentService {
             return new CustomApiException("유저 아이디를 찾을 수 없습니다.");
         });
 
-        return Comment.builder().build();
+        Comment comment = Comment.builder()
+                .text(text)
+                .post(post)
+                .user(user)
+                .build();
+        return commentRespository.save(comment);
+
+    }
+
+
+    @Transactional
+    public void  deleteComment(long id){
+        commentRespository.deleteById(id);
     }
 }
+
