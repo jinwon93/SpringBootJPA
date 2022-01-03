@@ -4,18 +4,19 @@ package jpabook.jpashop.service.instagram;
 import jpabook.jpashop.core.auth.PrincipalDetails;
 import jpabook.jpashop.core.handler.CustomVaildationException;
 import jpabook.jpashop.domain.instagram.User;
+import jpabook.jpashop.dto.instagram.user.UserSignupDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
-import jpabook.jpashop.dto.instagram.user.UserLoginDto;
 import jpabook.jpashop.dto.instagram.user.UserProfileDto;
 import jpabook.jpashop.dto.instagram.user.UserUpdateDto;
 import jpabook.jpashop.repository.instagram.FollowRepository;
 import jpabook.jpashop.repository.instagram.UserRepository;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,7 +32,7 @@ public class UserService {
 
 
     @Transactional
-    public void save(UserLoginDto userLoginDto){
+    public void save(@Valid UserSignupDto userLoginDto){
 
 
         if (userRepository.findSUerByEmail(userLoginDto.getEmail()) != null){
