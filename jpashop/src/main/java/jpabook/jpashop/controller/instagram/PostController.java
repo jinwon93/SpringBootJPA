@@ -3,12 +3,15 @@ package jpabook.jpashop.controller.instagram;
 
 import jpabook.jpashop.core.auth.PrincipalDetails;
 import jpabook.jpashop.core.handler.CustomApiException;
+import jpabook.jpashop.dto.instagram.post.PostDto;
 import jpabook.jpashop.dto.instagram.post.PostUploadDto;
 import jpabook.jpashop.service.instagram.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,4 +42,13 @@ public class PostController {
         redirectAttributes.addAttribute("id" , principalDetails.getUser().getId());
         return "redirect:/user/profile";
     }
+
+    @GetMapping("/post/update/{postId}")
+    public String update(@PathVariable long postId , Model model){
+
+        PostDto postDto = postService.getPostDto(postId);
+        model.addAttribute("postDto" , postDto);
+        return "post/update";
+    }
+
 }
