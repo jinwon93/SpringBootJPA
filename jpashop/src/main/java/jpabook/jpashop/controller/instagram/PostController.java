@@ -43,12 +43,20 @@ public class PostController {
         return "redirect:/user/profile";
     }
 
+    //post 수정 화면으로 이동
     @GetMapping("/post/update/{postId}")
     public String update(@PathVariable long postId , Model model){
 
         PostDto postDto = postService.getPostDto(postId);
         model.addAttribute("postDto" , postDto);
         return "post/update";
+    }
+
+    @PostMapping("/post/update")
+    public String postUpdate(PostUploadDto postUploadDto , @AuthenticationPrincipal PrincipalDetails principalDetails , RedirectAttributes redirectAttributes){
+        postService.update(postUploadDto);
+        redirectAttributes.addAttribute("io" ,principalDetails.getUser().getId());
+        return "redirect:/user/profile";
     }
 
 }
