@@ -52,6 +52,7 @@ public class PostController {
         return "post/update";
     }
 
+    //포스트 수정 폼
     @PostMapping("/post/update")
     public String postUpdate(PostUploadDto postUploadDto , @AuthenticationPrincipal PrincipalDetails principalDetails , RedirectAttributes redirectAttributes){
         postService.update(postUploadDto);
@@ -59,4 +60,19 @@ public class PostController {
         return "redirect:/user/profile";
     }
 
+
+    //포스트 삭제 폼
+    @PostMapping("/post/delete")
+    public String delete(@RequestParam("postId") long postId , @AuthenticationPrincipal PrincipalDetails principalDetails , RedirectAttributes redirectAttributes){
+        postService.delete(postId);
+        redirectAttributes.addAttribute("id" , principalDetails.getUser().getId());
+        return "redirect:/user/profile";
+    }
+
+    //검색 페이지 - 게시글의 태그 눌러서 이동
+    @GetMapping("/post/searchForm")
+    public String search(@RequestParam("tag") , String tag , Model model){
+        model.addAttribute("tag" , tag);
+        return "post/search";
+    }
 }
