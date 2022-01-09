@@ -75,4 +75,10 @@ public class PostController {
         model.addAttribute("tag" , tag);
         return "post/search";
     }
+
+    //검색 폼 입력 후 페이지 이동
+    public String searchForm(String tag  , RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("tag" , tag);
+        return "redirect:/post/search";
+    }
 }
