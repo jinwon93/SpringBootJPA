@@ -77,8 +77,21 @@ public class PostController {
     }
 
     //검색 폼 입력 후 페이지 이동
+    @PostMapping("/post/searchForm")
     public String searchForm(String tag  , RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("tag" , tag);
         return "redirect:/post/search";
+    }
+
+    //좋아요한 포스트 출력 페이지로 이동
+    @GetMapping("/post/likes")
+    public String likes(){
+        return "post/likes";
+    }
+
+    //인기 포스트 페이지로 이동
+    @GetMapping("/post/popular")
+    public String popular(){
+        return "post/popular";
     }
 }
