@@ -71,7 +71,7 @@ public class PostController {
 
     //검색 페이지 - 게시글의 태그 눌러서 이동
     @GetMapping("/post/searchForm")
-    public String search(@RequestParam("tag") , String tag , Model model){
+    public String search(@RequestParam("tag")  String tag , Model model){
         model.addAttribute("tag" , tag);
         return "post/search";
     }
