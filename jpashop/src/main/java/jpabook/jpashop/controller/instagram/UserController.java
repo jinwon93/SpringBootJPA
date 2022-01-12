@@ -27,8 +27,14 @@ public class UserController {
         return "user/profile";
     }
     
+    
+    //사용자 정보 수정 페이지로 이동
+    @GetMapping("/user/update")
+    public String update(){
+        return "user/update";
+    }
 
-    // 회원가입
+
 
 
 }
