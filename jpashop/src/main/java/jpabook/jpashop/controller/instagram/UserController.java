@@ -3,14 +3,20 @@ package jpabook.jpashop.controller.instagram;
 
 import jpabook.jpashop.core.auth.PrincipalDetails;
 import jpabook.jpashop.dto.instagram.user.UserProfileDto;
+import jpabook.jpashop.dto.instagram.user.UserUpdateDto;
 import jpabook.jpashop.service.instagram.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import jpabook.jpashop.repository.instagram.UserRepository;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 
 @RequiredArgsConstructor
@@ -35,6 +41,14 @@ public class UserController {
     }
 
 
+    //사용자 정보 업데이트
+    @PostMapping("/user/update")
+    public String updateUser(@Valid UserUpdateDto userUpdateDto , BindingResult bindingResult , @RequestParam("profileImgUrl")MultipartFile multipartFile,
+                             RedirectAttributes redirectAttributes ,  @AuthenticationPrincipal PrincipalDetails principalDetails){
+        userService.update(userUpdateDto  ,multipartFile , principalDetails);
+        redirectAttributes.addAttribute("id" , principalDetails.getUser().getId());
+        return "redirect:/user/profile";
+    }
 
 
 }
