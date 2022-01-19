@@ -5,6 +5,8 @@ import jpabook.jpashop.core.auth.PrincipalDetails;
 import jpabook.jpashop.service.instagram.LikeService;
 import jpabook.jpashop.service.instagram.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,4 +31,18 @@ public class PostApiController {
         likeService.likes(postId , principalDetails.getUser().getId());
         return new ResponseEntity<>("좋아요 성공 " ,HttpStatus.OK);
     }
+
+    @DeleteMapping("/post/{postId}/likes")
+    public ResponseEntity<?> unLikes(@PathVariable long postId , @AuthenticationPrincipal PrincipalDetails principalDetails){
+        likeService.unLikes(postId , principalDetails.getUser().getId());
+        return new ResponseEntity<>("좋아요 취소 성공" ,HttpStatus.OK);
+    }
+
+    @GetMapping("/post/tag")
+    public ResponseEntity<?> searchTag(@RequestParam String tag , @AuthenticationPrincipal PrincipalDetails principalDetails , @PageableDefault(size = 3) Pageable pageable){
+        return new ResponseEntity<>(postService.getPost(principalDetails.getUser().getId() , pageable) ,HttpStatus.OK);
+    }
+
+
+
 }
