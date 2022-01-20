@@ -44,5 +44,17 @@ public class PostApiController {
     }
 
 
+    @GetMapping("/post/likes")
+    public  ResponseEntity<?> getLikesPost(@AuthenticationPrincipal PrincipalDetails principalDetails ,
+                                           @PageableDefault(size = 12) Pageable pageable){
+        return new ResponseEntity<>(postService.getLikesPost(principalDetails.getUser().getId() ,pageable) , HttpStatus.OK);
+    }
+
+
+    @GetMapping("/post/popular")
+    public ResponseEntity<?> getPopularPost(){
+        return new ResponseEntity<>(postService.getPopularPost() , HttpStatus.OK);
+    }
+
 
 }
