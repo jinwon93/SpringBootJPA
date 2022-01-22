@@ -23,4 +23,10 @@ public class UserApiController {
     public ResponseEntity<?> getFollower(@PathVariable long profileId , @AuthenticationPrincipal PrincipalDetails principalDetails){
         return new ResponseEntity<>(followService.getFollower(profileId , principalDetails.getUser().getId()) , HttpStatus.OK);
     }
+
+
+    @GetMapping("/user/{profileId}/following")
+    public ResponseEntity<?> getFollowing(@PathVariable long profileId  , @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return new ResponseEntity<>(followService.getFollowing(profileId , principalDetails.getUser().getId()), HttpStatus.OK);
+    }
 }
