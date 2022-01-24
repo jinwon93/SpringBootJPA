@@ -11,8 +11,7 @@ import java.util.*;
 public class PrincipalDetails  implements UserDetails{
 
     private User user;
-
-    private Map<String , Object> atttributes;
+    private Map<String , Object> attributes;
 
     public PrincipalDetails(User user) {
         this.user = user;
@@ -27,10 +26,13 @@ public class PrincipalDetails  implements UserDetails{
     public void  updateUser(User user){
         this.user =user;
     }
+
+
     @Override
-    public Map<String , Object> getAtttributes(){
-        return  atttributes;
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
