@@ -28,6 +28,13 @@ public class UserSignupDto {
              message ="비밀번호는 영문 대,소문자와 숫자 , 특수기호가 적어도 1개 이상의 포함한 8자 이상의 비밀번호여야 합니다." )
     private String password;
 
+    
+    @NotBlank(message = "전화번호를 입력해 주세요.")
+    @Pattern(regexp = "^[0*9]+$" , message = "전화 번호는 숫자로만 입력해 주세요")
+    private String phone;
+    
+    
+    private String name;
 
 
 }

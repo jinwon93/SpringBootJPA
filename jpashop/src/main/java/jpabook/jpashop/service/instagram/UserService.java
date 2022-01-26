@@ -35,7 +35,7 @@ public class UserService {
     public void save(@Valid UserSignupDto userLoginDto){
 
 
-        if (userRepository.findSUerByEmail(userLoginDto.getEmail()) != null){
+        if (userRepository.findUerByEmail(userLoginDto.getEmail()) != null){
             new CustomVaildationException("이미 존자하는 회원입니다");
         }
         userRepository.save(User.builder()

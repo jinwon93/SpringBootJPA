@@ -1,5 +1,6 @@
 package jpabook.jpashop.core.oauth;
 
+import jpabook.jpashop.core.auth.PrincipalDetails;
 import jpabook.jpashop.domain.instagram.User;
 import jpabook.jpashop.repository.instagram.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,19 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService {
         String name = (String) user_map.get("name");
         String password = new BCryptPasswordEncoder().encode(UUID.randomUUID().toString()); //랜덤한 비밀번호 생성
 
-        User check_user = userRepository.findSUerByEmail(email);
+        User check_user = userRepository.findUerByEmail(email);
 
-        return null;
+        if (check_user == null){
+            User user = User.builder()
+                    .email(email)
+                    .password(password)
+                    .phone(null)
+                    .name(name)
+                    .build();
+            //return  new PrincipalDetails(userRepository.save(user) , user_map);
+        }else {
+            //return  new PrincipalDetails(check_user);
+        }
+        return  null;
     }
 }
