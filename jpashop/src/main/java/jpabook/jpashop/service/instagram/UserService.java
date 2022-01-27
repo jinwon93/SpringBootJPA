@@ -2,6 +2,7 @@ package jpabook.jpashop.service.instagram;
 
 
 import jpabook.jpashop.core.auth.PrincipalDetails;
+import jpabook.jpashop.core.handler.CustomApiException;
 import jpabook.jpashop.core.handler.CustomVaildationException;
 import jpabook.jpashop.domain.instagram.User;
 import jpabook.jpashop.dto.instagram.user.UserSignupDto;
@@ -31,20 +32,18 @@ public class UserService {
     private final FollowRepository followRepository;
 
 
-    @Transactional
-    public void save(@Valid UserSignupDto userLoginDto){
-
-
-        if (userRepository.findUerByEmail(userLoginDto.getEmail()) != null){
-            new CustomVaildationException("이미 존자하는 회원입니다");
-        }
-        userRepository.save(User.builder()
-                .email(userLoginDto.getEmail())
-                .password(userLoginDto.getPassword())
-                .phone(userLoginDto.getPhone())
-                .name(userLoginDto.getName())
-                .build()
-                );
+    public User save(UserSignupDto userSignupDto){
+        if (userRepository.findUerByEmail(userSignupDto.getEmail()) != null) throw new CustomApiException("이미 존재하는 email입니다");
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return userRepository.save(User.builder()
+                .email(userSignupDto.getEmail())
+                .password(userSignupDto.getPassword())
+                .phone(userSignupDto.getPhone())
+                .name(userSignupDto.getName())
+                .title(null)
+                .website(null)
+                .profileImgUrl(null)
+                .build());
     }
 
     @Value("${profileImg.path}")
