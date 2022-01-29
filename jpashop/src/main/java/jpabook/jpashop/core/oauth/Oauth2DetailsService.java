@@ -39,10 +39,10 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService {
                     .phone(null)
                     .name(name)
                     .build();
-            //return  new PrincipalDetails(userRepository.save(user) , user_map);
+            return new PrincipalDetails(userRepository.save(user) , user_map);
         }else {
-            //return  new PrincipalDetails(check_user);
+            return  new PrincipalDetails(check_user);
         }
-        return  null;
+
     }
 }
