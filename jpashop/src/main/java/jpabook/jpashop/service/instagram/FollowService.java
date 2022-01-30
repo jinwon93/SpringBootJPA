@@ -1,6 +1,6 @@
 package jpabook.jpashop.service.instagram;
 
-import jpabook.jpashop.core.handler.CustomApiException;
+import jpabook.jpashop.core.handler.ex.CustomApiException;
 import jpabook.jpashop.dto.instagram.post.FollowDto;
 import jpabook.jpashop.repository.instagram.FollowRepository;
 import lombok.RequiredArgsConstructor;

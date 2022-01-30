@@ -2,8 +2,8 @@ package jpabook.jpashop.service.instagram;
 
 
 import jpabook.jpashop.core.auth.PrincipalDetails;
-import jpabook.jpashop.core.handler.CustomApiException;
-import jpabook.jpashop.core.handler.CustomVaildationException;
+import jpabook.jpashop.core.handler.ex.CustomApiException;
+import jpabook.jpashop.core.handler.ex.CustomVaildationException;
 import jpabook.jpashop.domain.instagram.User;
 import jpabook.jpashop.dto.instagram.user.UserSignupDto;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,6 @@ import jpabook.jpashop.repository.instagram.FollowRepository;
 import jpabook.jpashop.repository.instagram.UserRepository;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;

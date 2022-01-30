@@ -1,4 +1,4 @@
-package jpabook.jpashop.core.handler;
+package jpabook.jpashop.core.handler.ex;
 
 import lombok.AllArgsConstructor;
 

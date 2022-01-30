@@ -2,7 +2,7 @@ package jpabook.jpashop.controller.instagram;
 
 
 import jpabook.jpashop.core.auth.PrincipalDetails;
-import jpabook.jpashop.core.handler.CustomApiException;
+import jpabook.jpashop.core.handler.ex.CustomApiException;
 import jpabook.jpashop.dto.instagram.post.PostDto;
 import jpabook.jpashop.dto.instagram.post.PostUploadDto;
 import jpabook.jpashop.service.instagram.PostService;

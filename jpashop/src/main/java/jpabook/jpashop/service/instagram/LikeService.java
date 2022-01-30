@@ -1,7 +1,7 @@
 package jpabook.jpashop.service.instagram;
 
 
-import jpabook.jpashop.core.handler.CustomApiException;
+import jpabook.jpashop.core.handler.ex.CustomApiException;
 import jpabook.jpashop.repository.instagram.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

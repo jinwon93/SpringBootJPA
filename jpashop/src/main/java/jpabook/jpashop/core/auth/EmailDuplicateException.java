@@ -1,6 +1,6 @@
 package jpabook.jpashop.core.auth;
 
-import jpabook.jpashop.core.handler.CustomVaildationException;
+import jpabook.jpashop.core.handler.ex.CustomVaildationException;
 import lombok.Getter;
 
 @Getter

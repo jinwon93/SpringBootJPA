@@ -1,7 +1,7 @@
 package jpabook.jpashop.service.instagram;
 
 
-import jpabook.jpashop.core.handler.CustomApiException;
+import jpabook.jpashop.core.handler.ex.CustomApiException;
 import jpabook.jpashop.domain.instagram.Comment;
 import jpabook.jpashop.domain.instagram.Post;
 import jpabook.jpashop.domain.instagram.User;
