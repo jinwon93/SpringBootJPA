@@ -25,7 +25,6 @@ public class Comment {
     @JsonIgnoreProperties({"postList"})
     @JoinColumn(name = "user_id")
     private User user;
-    private
 
 
     @ManyToOne

@@ -34,6 +34,7 @@ public class ValidationAdvice {
     }
 
 
+    @Around("execution(*)")
     public Object advice(ProceedingJoinPoint proceedingJoinPoint) throws  Throwable{
         Object[] args = proceedingJoinPoint.getArgs();
         for (Object arg : args){
@@ -41,10 +42,14 @@ public class ValidationAdvice {
                 BindingResult bindingResult = (BindingResult) arg;
                 if (bindingResult.hasErrors()){
                     Map<String , String> errorMap = new HashMap<>();
+                    for (FieldError error : bindingResult.getFieldErrors()){
+                        errorMap.put(error.getField() , error.getDefaultMessage());
+                    }
+                    throw new CustomValidationApiException("유효성 검사 실패" , errorMap);
                 }
             }
         }
-        return null;
+        return proceedingJoinPoint.proceed();
     }
 
 }
