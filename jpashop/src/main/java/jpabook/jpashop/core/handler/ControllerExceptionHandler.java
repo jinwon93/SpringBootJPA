@@ -1,6 +1,7 @@
 package jpabook.jpashop.core.handler;
 
 
+import jpabook.jpashop.core.handler.ex.CustomApiException;
 import jpabook.jpashop.core.handler.ex.CustomVaildationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,10 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(CustomVaildationException.class)
     public ResponseEntity<?> validationApiException(CustomVaildationException e){
         return new ResponseEntity<>(e.getMessage() , HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomApiException.class)
+    public ResponseEntity<?> apiException(CustomVaildationException e){
+        return  new ResponseEntity<>(e.getMessage() , HttpStatus.BAD_REQUEST);
     }
 }
